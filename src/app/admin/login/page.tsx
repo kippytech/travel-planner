@@ -11,6 +11,10 @@ import {
 import Image from "next/image";
 import React, { useState } from "react";
 import { Architects_Daughter } from "next/font/google";
+import { apiClient } from "@/lib";
+import { ADMIN_API_ROUTES } from "@/utils/api-routes";
+import { useAppStore } from "@/store";
+import { useRouter } from "next/navigation";
 
 const architects_Daughter = Architects_Daughter({
   weight: "400",
@@ -21,8 +25,25 @@ const architects_Daughter = Architects_Daughter({
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setUserInfo } = useAppStore();
 
-  const handleLogin = async () => {};
+  const router = useRouter();
+
+  const handleLogin = async () => {
+    try {
+      const res = await apiClient.post(ADMIN_API_ROUTES.LOGIN, {
+        email,
+        password,
+      });
+
+      if (res.data.userInfo) {
+        setUserInfo(res.data.userInfo);
+        router.push("/admin");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div
       className="h-[100vh] w-full flex items-center justify-center bg-cover bg-center bg-no-repeat"
