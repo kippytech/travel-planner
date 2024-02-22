@@ -45,7 +45,6 @@ interface JobType {
   id: string;
   url: string;
   createdAt: string;
-  //eslint-disable-next-line @typescript-eslint/no-explicit-any
   jobType: any;
   status: "active" | "failed" | "complete";
 }
@@ -53,7 +52,7 @@ interface JobType {
 export default function CurrentlyScrapingTable({ jobs }: { jobs: JobType[] }) {
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
-    new Set([])
+    new Set([]),
   );
 
   const [statusFilter, setStatusFilter] = React.useState<Selection>("all");
@@ -74,7 +73,7 @@ export default function CurrentlyScrapingTable({ jobs }: { jobs: JobType[] }) {
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
-        user.url.toLowerCase().includes(filterValue.toLowerCase())
+        user.url.toLowerCase().includes(filterValue.toLowerCase()),
       );
     }
     if (
@@ -82,7 +81,7 @@ export default function CurrentlyScrapingTable({ jobs }: { jobs: JobType[] }) {
       Array.from(statusFilter).length !== statusOptions.length
     ) {
       filteredUsers = filteredUsers.filter((user) =>
-        Array.from(statusFilter).includes(user.status)
+        Array.from(statusFilter).includes(user.status),
       );
     }
 
@@ -116,7 +115,7 @@ export default function CurrentlyScrapingTable({ jobs }: { jobs: JobType[] }) {
         } as Intl.DateTimeFormatOptions;
 
         const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
-          date
+          date,
         );
 
         return formattedDate;
@@ -124,7 +123,7 @@ export default function CurrentlyScrapingTable({ jobs }: { jobs: JobType[] }) {
       switch (columnKey) {
         case "url":
           return (
-            <Link href={cellValue} target="_blank">
+            <Link href={cellValue} target="_blank" className="text-primary-500">
               {cellValue}
             </Link>
           );
@@ -148,7 +147,7 @@ export default function CurrentlyScrapingTable({ jobs }: { jobs: JobType[] }) {
           return cellValue;
       }
     },
-    []
+    [],
   );
 
   const onNextPage = React.useCallback(() => {
@@ -168,7 +167,7 @@ export default function CurrentlyScrapingTable({ jobs }: { jobs: JobType[] }) {
       setRowsPerPage(Number(e.target.value));
       setPage(1);
     },
-    []
+    [],
   );
 
   const onSearchChange = React.useCallback((value?: string) => {
