@@ -22,6 +22,7 @@
     "prisma": "^5.10.2",
     "react": "^18",
     "react-dom": "^18",
+    "react-pro-sidebar": "^1.1.0",
     "zustand": "^4.5.1"
   },
   "devDependencies": {
