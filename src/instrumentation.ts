@@ -1,5 +1,5 @@
 import { Browser } from "puppeteer";
-import { startLocationScraping } from "./scraping";
+import { startLocationScraping, startPackageScraping } from "./scraping";
 
 export const register = async () => {
   console.log("server restarted...");
@@ -59,6 +59,37 @@ export const register = async () => {
             }
           } else if (job.data.jobType.type === "package") {
             console.log(job.data);
+
+            //check if already scraped
+            const alreadyScraped = await prisma.trips.findUnique({
+              where: {
+                id: job.data.packageDetails.id,
+              },
+            });
+
+            //scrape the package if not
+            if (!alreadyScraped) {
+              const pkg = await startPackageScraping(
+                page,
+                job.data.packageDetails,
+              );
+
+              console.log("pkg>>>", pkg);
+
+              //store the package in trips model
+
+              await prisma.trips.create({
+                //@ts-ignore
+                data: pkg,
+              });
+              //mark the job as complete
+              await prisma.jobs.update({
+                where: {
+                  id: job.data.packageDetails.id,
+                },
+                data: { isComplete: true, status: "complete" },
+              });
+            }
           }
         } catch (error) {
           console.error(error);

@@ -46,15 +46,15 @@ model Trips {
   name String
   nights Int
   days Int
-  destinationItinerary Json
+  destinationItenary Json
   images Json
   inclusions Json
   themes Json
   price Int
   destinationDetails Json
-  detailedIntineary Json
+  detailedItenary Json
   description String
-  packageIteniary Json
+  packageItenary Json
   scrapedOn DateTime @default(now())
 }
 
