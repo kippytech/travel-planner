@@ -33,6 +33,32 @@ export const register = async () => {
 
             const packages = await startLocationScraping(page);
             console.log({ packages });
+
+            await prisma.jobs.update({
+              where: { id: job.data.id },
+              data: { isComplete: true, status: "complete" },
+            });
+
+            for (const pkg of packages) {
+              const jobCreated = await prisma.jobs.findFirst({
+                where: {
+                  url: `https://packages.yatra.com/holidays/intl/details.htm?packageId=${pkg?.id}`,
+                },
+              });
+
+              if (!jobCreated) {
+                await prisma.jobs.create({
+                  data: {
+                    url: `https://packages.yatra.com/holidays/intl/details.htm?packageId=${pkg?.id}`,
+                    jobType: { type: "package" },
+                  },
+                });
+
+                jobsQueue.add("package", { ...job, packageDetails: pkg });
+              }
+            }
+          } else if (job.data.jobType.type === "package") {
+            console.log(job.data);
           }
         } catch (error) {
           console.error(error);
