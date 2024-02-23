@@ -87,7 +87,7 @@ function Sidebar() {
         >
           <div className="flex items-center justify-center my-10 flex-col">
             <Image
-              src="/logo.png"
+              src="/randomImages/logo.png"
               alt="logo"
               height={150}
               width={150}
