@@ -29,15 +29,20 @@ const Footer = () => {
       <div className="relative z-10 p-4 grid grid-cols-4 gap-20 text-white">
         <div>
           <div className="cursor-pointer" onClick={() => router.push("/")}>
-            <Image src="/logo.png" alt="logo" height={80} width={80} />
+            <Image
+              src="/randomImages/logo.png"
+              alt="logo"
+              height={80}
+              width={80}
+            />
             <span className="text-xl uppercase font-medium italic">
-              <span className={ArchitectsDaughter.className}>ARKLYTE</span>
+              <span className={ArchitectsDaughter.className}>easy-book</span>
             </span>
           </div>
           <p>
             Explore seamlessly curated tours with our all-in-one travel app.
             Effortlessly discover, compare, and book flights, hotels, and tours
-            for your next adventure, powered by Next.js.
+            for your next adventure, powered by easy-book.
           </p>
         </div>
         <div className="flex flex-col gap-3 pt-10">
