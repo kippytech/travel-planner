@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import { USER_API_ROUTES } from "@/utils";
 import { apiClient } from "@/lib";
 import { useAppStore } from "@/store";
+import axios from "axios";
 
 const ArchitectsDaughter = Architects_Daughter({
   weight: "400", // if single weight, otherwise you use array like [400, 500, 700],
@@ -40,7 +41,7 @@ const AuthModal = ({
   const [password, setPassword] = useState("");
 
   const handleSignup = async (onClose: () => void) => {
-    const response = await apiClient.post(USER_API_ROUTES.SIGNUP, {
+    const response = await axios.post(USER_API_ROUTES.SIGNUP, {
       firstName: firstName,
       lastName: lastName,
       email: email,
@@ -49,17 +50,27 @@ const AuthModal = ({
     if (response.data.userInfo) {
       setUserInfo(response.data.userInfo);
       onClose();
+
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPassword("");
     }
   };
 
   const handleLogin = async (onClose: () => void) => {
-    const response = await apiClient.post(USER_API_ROUTES.LOGIN, {
+    const response = await axios.post(USER_API_ROUTES.LOGIN, {
       email,
       password,
     });
     if (response.data.userInfo) {
       setUserInfo(response.data.userInfo);
       onClose();
+
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPassword("");
     }
   };
 
@@ -88,7 +99,7 @@ const AuthModal = ({
             <ModalBody className="flex flex-col items-center w-full justify-center">
               <div className="">
                 <Image
-                  src="/logo.png"
+                  src="/randomImages/logo.png"
                   alt="logo"
                   height={80}
                   width={80}
@@ -96,7 +107,9 @@ const AuthModal = ({
                   onClick={() => router.push("/admin/dashboard")}
                 />
                 <span className="text-xl uppercase font-medium italic">
-                  <span className={ArchitectsDaughter.className}>ARKLYTE</span>
+                  <span className={ArchitectsDaughter.className}>
+                    easy-book
+                  </span>
                 </span>
               </div>
               <div className="flex flex-col gap-2 w-full">
