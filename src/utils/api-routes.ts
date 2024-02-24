@@ -1,3 +1,5 @@
+const baseRoute = `${process.env.NEXT_PUBLIC_DOMAIN}/api`;
+
 export const USER_API_ROUTES = {
   SIGNUP: "/auth/signup",
   LOGIN: "/auth/login",
@@ -18,9 +20,9 @@ export const USER_API_ROUTES = {
 };
 
 export const ADMIN_API_ROUTES = {
-  LOGIN: "/admin/login",
-  DASHBOARD_SCRAPING_CHART_DATA: "/admin/dashboard/scraping-chart-data",
-  DASHBOARD_METRICS: "/admin/dashboard/metrics",
-  CREATE_JOB: "/admin/create-job",
-  JOB_DETAILS: "/admin/job-details",
+  LOGIN: `${baseRoute}/admin/login`,
+  DASHBOARD_SCRAPING_CHART_DATA: `${baseRoute}/admin/dashboard/scraping-chart-data`,
+  DASHBOARD_METRICS: `${baseRoute}/admin/dashboard/metrics`,
+  CREATE_JOB: `${baseRoute}/admin/create-job`,
+  JOB_DETAILS: `${baseRoute}/admin/job-details`,
 };

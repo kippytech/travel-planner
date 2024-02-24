@@ -2,12 +2,13 @@ import { apiClient } from "@/lib";
 import { ADMIN_API_ROUTES } from "@/utils/api-routes";
 import { Card, CardBody, CardHeader } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const ScrapingQueue = () => {
   const [ongoingJobs, setOngoingJobs] = useState(0);
   useEffect(() => {
     const getData = async () => {
-      const data = await apiClient.get(ADMIN_API_ROUTES.JOB_DETAILS);
+      const data = await axios.get(ADMIN_API_ROUTES.JOB_DETAILS);
 
       setOngoingJobs(data.data.onGoingJobs);
     };
